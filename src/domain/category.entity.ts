@@ -8,8 +8,8 @@ export type CategoryConstructorProps = {
 
 export type CategoryCreateCommand = {
   name: string
-  description: string | null
-  is_active: boolean
+  description?: string | null
+  is_active?: boolean
 }
 
 export class Category {

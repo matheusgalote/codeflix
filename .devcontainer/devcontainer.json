@@ -29,7 +29,9 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"oderwat.indent-rainbow"
+				"oderwat.indent-rainbow",
+				"Orta.vscode-jest",
+				"firsttris.vscode-jest-runner"
 			]
 		}
 	}
