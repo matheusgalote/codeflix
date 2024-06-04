@@ -2,6 +2,11 @@ import { Uuid } from "../../../shared/domain/value-objects/uuid.vo"
 import { Category } from "../category.entity"
 
 describe("Category Unit Tests", () => {
+  let validateSpy: any
+  beforeEach(() => {
+    validateSpy = jest.spyOn(Category, "validate")
+  })
+
   describe("constructor", () => {
     test("constructor 1 - should create a Category with name", () => {
       // AAA - Arrange Act Assert
@@ -62,6 +67,7 @@ describe("Category Unit Tests", () => {
       expect(category.description).toBeNull()
       expect(category.is_active).toBeTruthy()
       expect(category.created_at).toBeInstanceOf(Date)
+      expect(validateSpy).toHaveBeenCalledTimes(1)
     })
 
     test("should create a Category with name and description", () => {
@@ -75,6 +81,7 @@ describe("Category Unit Tests", () => {
       expect(category.description).toBe("movie desc")
       expect(category.is_active).toBeTruthy()
       expect(category.created_at).toBeInstanceOf(Date)
+      expect(validateSpy).toHaveBeenCalledTimes(1)
     })
 
     test("should create a Category with name, description and is_active", () => {
@@ -89,6 +96,7 @@ describe("Category Unit Tests", () => {
       expect(category.description).toBe("movie desc")
       expect(category.is_active).toBeFalsy()
       expect(category.created_at).toBeInstanceOf(Date)
+      expect(validateSpy).toHaveBeenCalledTimes(1)
     })
   })
 
@@ -116,6 +124,7 @@ describe("Category Unit Tests", () => {
     })
     category.changeName("Movie 2")
     expect(category.name).toBe("Movie 2")
+    expect(validateSpy).toHaveBeenCalledTimes(2)
   })
 
   test("should change a Category description", () => {
@@ -125,6 +134,7 @@ describe("Category Unit Tests", () => {
     })
     category.changeDescription("movie desc 2")
     expect(category.description).toBe("movie desc 2")
+    expect(validateSpy).toHaveBeenCalledTimes(2)
   })
 
   test("should deactivate a Category", () => {
@@ -133,6 +143,7 @@ describe("Category Unit Tests", () => {
     })
     category.deactivate()
     expect(category.is_active).toBeFalsy()
+    expect(validateSpy).toHaveBeenCalledTimes(1)
   })
 
   test("should activate a Category", () => {
@@ -142,5 +153,6 @@ describe("Category Unit Tests", () => {
     })
     category.activate()
     expect(category.is_active).toBeTruthy()
+    expect(validateSpy).toHaveBeenCalledTimes(1)
   })
 })
