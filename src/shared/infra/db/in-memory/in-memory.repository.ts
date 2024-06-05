@@ -3,10 +3,13 @@ import {
   IRepository,
   ISearchableRepository,
 } from "../../../domain/repository/repository.interface"
-import { SearchParams } from "../../../domain/repository/search-params"
+import {
+  SearchParams,
+  SortDirection,
+} from "../../../domain/repository/search-params"
 import { SearchResult } from "../../../domain/repository/search-result"
 import { ValueObject } from "../../../domain/value-object"
-import { NotFoundError } from "./not-found.error"
+import { NotFoundError } from "../../../errors/not-found.error"
 
 export abstract class InMemoryRepository<
   E extends Entity,
@@ -90,7 +93,7 @@ export abstract class InMemorySearchableRepository<
       items: itemsPaginated,
       total: itemsFiltered.length,
       current_page: props.page,
-      per_page: props.page,
+      per_page: props.per_page,
     })
   }
 
@@ -99,10 +102,20 @@ export abstract class InMemorySearchableRepository<
     filter: Filter | null
   ): Promise<E[]>
 
+  protected applyPaginate(
+    items: E[],
+    page: SearchParams["page"],
+    per_page: SearchParams["per_page"]
+  ) {
+    const start = (page - 1) * per_page // 0 * 15 = 0
+    const limit = start + per_page // 0 + 15 = 15
+    return items.slice(start, limit)
+  }
+
   protected applySort(
     items: E[],
-    sort: SearchParams["sort"],
-    sort_dir: SearchParams["sort_dir"],
+    sort: string | null,
+    sort_dir: SortDirection | null,
     custom_getter?: (sort: string, item: E) => any
   ) {
     if (!sort || !this.sortableFields.includes(sort)) {
@@ -124,15 +137,5 @@ export abstract class InMemorySearchableRepository<
 
       return 0
     })
-  }
-
-  protected applyPaginate(
-    items: E[],
-    page: SearchParams["page"],
-    per_page: SearchParams["per_page"]
-  ) {
-    const start = (page - 1) * per_page // 1 * 15 = 15
-    const limit = start + per_page // 15 + 15 = 30
-    return items.slice(start, limit)
   }
 }
