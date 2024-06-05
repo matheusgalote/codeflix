@@ -1,6 +1,6 @@
-import { Entity } from "../../domain/entity"
-import { IRepository } from "../../domain/repository/repository.interface"
-import { ValueObject } from "../../domain/value-object"
+import { Entity } from "../../../domain/entity"
+import { IRepository } from "../../../domain/repository/repository.interface"
+import { ValueObject } from "../../../domain/value-object"
 import { NotFoundError } from "./not-found.error"
 
 export abstract class InMemoryRepository<
