@@ -166,7 +166,7 @@ describe("CategoryFakerBuilder Unit Tests", () => {
 
     test("should throw error when any with methods has called", () => {
       const fakerCategory = CategoryFakeBuilder.aCategory()
-      expect(() => fakerCategory.created_at).toThrowError(
+      expect(() => fakerCategory.created_at).toThrow(
         new Error("Property created_at not have a factory, use 'with' methods")
       )
     })
