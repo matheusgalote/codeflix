@@ -57,10 +57,31 @@ export class CategorySequelizeRepository implements ICategoryRepository {
   }
 
   async bulkUpdate(categories: Category[]): Promise<void> {
-    // const models = await this._getMany(categories.map((category) => category.category_id.id))
-    // if (models.length !== categories.length) {
-    //   throw new NotFoundError()
-    // }
+    const categoriesIds = categories.map((category) => category.category_id.id)
+    const models = await this._getMany(categoriesIds)
+
+    const modelsIds = models.map((model) => model.category_id)
+
+    const notFoundIds = categoriesIds.filter(
+      (categoryId) => !modelsIds.includes(categoryId)
+    )
+
+    if (notFoundIds) {
+      throw new NotFoundError(notFoundIds, this.getEntity())
+    }
+
+    await this.categoryModel.bulkCreate(
+      categories.map((category) => ({
+        category_id: category.category_id.id,
+        name: category.name,
+        description: category.description,
+        is_active: category.is_active,
+        created_at: category.created_at,
+      })),
+      {
+        updateOnDuplicate: ["name", "description", "is_active"],
+      }
+    )
   }
 
   async delete(category_id: Uuid): Promise<void> {
