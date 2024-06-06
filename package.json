@@ -27,8 +27,9 @@
     "class-validator": "^0.14.1",
     "git-commit-msg-linter": "^5.0.8",
     "lodash": "^4.17.21",
-    "sequelize": "^6.37.3", 
+    "sequelize": "^6.37.3",
     "sequelize-typescript": "^2.1.6",
+    "sqlite3": "^5.1.7",
     "uuid": "^9.0.1"
   }
 }
