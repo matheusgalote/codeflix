@@ -1,6 +1,6 @@
 import { Op } from "sequelize"
 import { Uuid } from "../../../../shared/domain/value-objects/uuid.vo"
-import { NotFoundError } from "../../../../shared/errors/not-found.error"
+import { NotFoundError } from "../../../../shared/domain/errors/not-found.error"
 import { Category } from "../../../domain/category.entity"
 import {
   CategorySearchParams,
