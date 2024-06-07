@@ -1,6 +1,6 @@
-import { IUseCase } from "../../shared/application/use-case.interface"
-import { Category } from "../domain/category.entity"
-import { ICategoryRepository } from "../domain/category.repository"
+import { IUseCase } from "../../../shared/application/use-case.interface"
+import { Category } from "../../domain/category.entity"
+import { ICategoryRepository } from "../../domain/category.repository"
 
 export class CreateCategoryUseCase
   implements IUseCase<CreateCategoryInput, CreateCategoryOutput>
@@ -12,7 +12,7 @@ export class CreateCategoryUseCase
 
     await this.categoryRepo.insert(entity)
 
-    // ao fazer uma mundança na entidade, não vai impactar aqui
+    // ao fazer uma mudança na entidade, não vai impactar aqui
     // caso retorno direto a entidade, quem usar esse caso de uso
     // vai conhecer detalhes externos (da entidade)
     return {
