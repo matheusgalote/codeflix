@@ -5,7 +5,7 @@ import {
 } from "../../../../../shared/domain/value-objects/uuid.vo"
 import { Category } from "../../../../domain/category.entity"
 import { CategoryInMemoryRepository } from "../../../../infra/db/in-memory/category-in-memory.repository"
-import { UpdateCategoryUseCase } from "../../update-category.use-case"
+import { UpdateCategoryUseCase } from "../update-category.use-case"
 
 describe("UpdateCategoryUseCase Unit Tests", () => {
   let useCase: UpdateCategoryUseCase
@@ -14,6 +14,18 @@ describe("UpdateCategoryUseCase Unit Tests", () => {
   beforeEach(() => {
     repository = new CategoryInMemoryRepository()
     useCase = new UpdateCategoryUseCase(repository)
+  })
+
+  test("should throw an error when aggregate is not valid", async () => {
+    const aggregate = new Category({ name: "mov" })
+    repository.items = [aggregate]
+
+    await expect(() =>
+      useCase.execute({
+        id: aggregate.category_id.id,
+        name: "t".repeat(256),
+      })
+    ).rejects.toThrow("Entity Validation Error")
   })
 
   test("should throws error when entity not found", async () => {
