@@ -8,7 +8,6 @@ export function setupSequelize(options: SequelizeOptions = {}) {
     _sequelize = new Sequelize({
       ...Config.db(),
       ...options,
-      logging: false,
     })
   })
 
