@@ -47,7 +47,7 @@ describe("ListCategoriesUseCase Unit Tests", () => {
     })
   })
 
-  it("should return output sorted by created_at when input param is empty", async () => {
+  test("should return output sorted by created_at when input param is empty", async () => {
     const items = [
       new Category({ name: "test 1" }),
       new Category({
