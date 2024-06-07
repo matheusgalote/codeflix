@@ -55,6 +55,11 @@ export class Category extends Entity {
     Category.validate(this)
   }
 
+  changeDate(date: Date): void {
+    this.created_at = date
+    Category.validate(this)
+  }
+
   activate() {
     this.is_active = true
   }
