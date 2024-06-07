@@ -104,6 +104,11 @@ describe("CategorySequelizeRepository Integration Test", () => {
     )
 
     await repository.bulkUpdate(newCategories)
+
+    const updatedModels = await CategoryModel.findAll()
+    expect(updatedModels.map((model) => model.toJSON())).toStrictEqual(
+      newCategories.map((category) => category.toJSON())
+    )
   })
 
   test("should throw error on delete when a entity not found", async () => {
