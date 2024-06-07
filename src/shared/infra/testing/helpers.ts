@@ -9,6 +9,7 @@ export function setupSequelize(options: SequelizeOptions = {}) {
       dialect: "sqlite",
       storage: ":memory:",
       ...options,
+      logging: false,
     })
   })
 
