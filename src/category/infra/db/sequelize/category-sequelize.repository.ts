@@ -1,6 +1,6 @@
 import { Op } from "sequelize"
 import { Uuid } from "../../../../shared/domain/value-objects/uuid.vo"
-import { NotFoundError } from "../../../../shared/errors/not-found.error"
+import { NotFoundError } from "../../../../shared/domain/errors/not-found.error"
 import { Category } from "../../../domain/category.entity"
 import {
   CategorySearchParams,
@@ -81,7 +81,9 @@ export class CategorySequelizeRepository implements ICategoryRepository {
       throw new NotFoundError(id, this.getEntity())
     }
 
-    await this.categoryModel.destroy({ where: { category_id: id } })
+    await this.categoryModel.destroy({
+      where: { category_id: id },
+    })
   }
 
   async findById(entity_id: Uuid): Promise<Category | null> {

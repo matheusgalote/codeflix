@@ -9,7 +9,7 @@ import {
 } from "../../../domain/repository/search-params"
 import { SearchResult } from "../../../domain/repository/search-result"
 import { ValueObject } from "../../../domain/value-object"
-import { NotFoundError } from "../../../errors/not-found.error"
+import { NotFoundError } from "../../../domain/errors/not-found.error"
 
 export abstract class InMemoryRepository<
   E extends Entity,

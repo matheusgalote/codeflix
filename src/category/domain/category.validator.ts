@@ -8,6 +8,11 @@ import {
 import { Category } from "./category.entity"
 import { ClassValidatorFields } from "../../shared/domain/validators/class-validator-fields"
 
+// validação de sintax vs validação de domnio
+// ex:
+// formatar uma data é uma validação de sintax
+// verificar se a data é menor que a data atual de domínio
+
 // Isso está acoplado ao class-validator
 // Necessário mudar caso troque de lib
 export class CategoryRules {
