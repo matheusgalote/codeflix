@@ -22,7 +22,7 @@ export class CategorySequelizeRepository implements ICategoryRepository {
 
   async bulkInsert(entities: Category[]): Promise<void> {
     const models = entities.map((entity) =>
-      CategoryModelMapper.toModel(entity).toJSON()
+      CategoryModelMapper.toModel(entity).toJSON(),
     )
     await this.categoryModel.bulkCreate(models)
   }
@@ -49,7 +49,7 @@ export class CategorySequelizeRepository implements ICategoryRepository {
     const modelsIds = models.map((model) => model.category_id)
 
     const notFoundIds = categoriesIds.filter(
-      (categoryId) => !modelsIds.includes(categoryId)
+      (categoryId) => !modelsIds.includes(categoryId),
     )
 
     if (notFoundIds.length) {
@@ -57,7 +57,7 @@ export class CategorySequelizeRepository implements ICategoryRepository {
     }
 
     const modelsToUpdate = categories.map((category) =>
-      CategoryModelMapper.toModel(category).toJSON()
+      CategoryModelMapper.toModel(category).toJSON(),
     )
 
     modelsToUpdate.map(async (model) => {

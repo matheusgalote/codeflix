@@ -1,10 +1,10 @@
-import { FieldsErrors } from "./src/shared/domain/validators/validator-fields-interface"
+export {}
 
 declare global {
   namespace jest {
     interface Matchers<R> {
       notificationContainsErrorMessages: (
-        expected: Array<string | { [key: string]: string[] }>
+        expected: Array<string | { [key: string]: string[] }>,
       ) => R
       // containsErrorMessages: (expected: FieldsErrors) => R
     }
