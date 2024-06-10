@@ -20,7 +20,7 @@ import { GetCategoryUseCase } from "@core/category/application/use-cases/get-cat
 import {
   ListCategoriesOutput,
   ListCategoriesUseCase,
-} from "@core/category/application/use-cases/list-category/list-categories.use-case"
+} from "@core/category/application/use-cases/list-categories/list-categories.use-case"
 import {
   CategoryPresenter,
   CategoryCollectionPresenter,

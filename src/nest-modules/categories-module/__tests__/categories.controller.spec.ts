@@ -9,7 +9,7 @@ import {
 import { UpdateCategoryOutput } from "../../../core/category/application/use-cases/update-category/update-category.use-case"
 import { UpdateCategoryInput } from "../../../core/category/application/use-cases/update-category/update-category.input"
 import { GetCategoryOutput } from "../../../core/category/application/use-cases/get-category/get-category.use-case"
-import { ListCategoriesOutput } from "@core/category/application/use-cases/list-category/list-categories.use-case"
+import { ListCategoriesOutput } from "@core/category/application/use-cases/list-categories/list-categories.use-case"
 
 describe("CategoriesController Unit Tests", () => {
   let controller: CategoriesController
