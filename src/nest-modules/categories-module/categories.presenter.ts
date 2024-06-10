@@ -22,7 +22,7 @@ export class CategoryPresenter {
   }
 }
 
-export class CategoryColletionPresenter extends CollectionPresenter {
+export class CategoryCollectionPresenter extends CollectionPresenter {
   data: CategoryPresenter[]
 
   constructor(output: ListCategoriesOutput) {
