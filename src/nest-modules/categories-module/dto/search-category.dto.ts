@@ -1,4 +1,4 @@
-import { ListCategoriesInput } from "@core/category/application/use-cases/list-category/list-categories.use-case"
+import { ListCategoriesInput } from "@core/category/application/use-cases/list-categories/list-categories.use-case"
 import { SortDirection } from "@core/shared/domain/repository/search-params"
 
 export class SearchCategoryDto implements ListCategoriesInput {
