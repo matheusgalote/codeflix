@@ -8,7 +8,7 @@ import { CategorySequelizeRepository } from "../../core/category/infra/db/sequel
 import { CategoryModel } from "../../core/category/infra/db/sequelize/category.model"
 import { ICategoryRepository } from "../../core/category/domain/category.repository"
 // import { CategoriesIdExistsInDatabaseValidator } from "../../core/category/application/validations/categories-ids-exists-in-database.validator"
-import { ListCategoriesUseCase } from "@core/category/application/use-cases/list-category/list-categories.use-case"
+import { ListCategoriesUseCase } from "@core/category/application/use-cases/list-categories/list-categories.use-case"
 
 export const REPOSITORIES = {
   CATEGORY_REPOSITORY: {
