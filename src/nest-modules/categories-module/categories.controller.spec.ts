@@ -16,7 +16,6 @@ describe("CategoriesController", () => {
   })
 
   test("should be defined", () => {
-    console.log(controller)
     expect(controller).toBeDefined()
   })
 })
