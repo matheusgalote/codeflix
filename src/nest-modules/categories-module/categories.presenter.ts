@@ -6,7 +6,6 @@ import { CollectionPresenter } from "../shared-module/collection.presenter"
 export class CategoryPresenter {
   id: string
 
-  @Transform(({ value }: { value: string }) => value.toLocaleUpperCase())
   name: string
 
   description: string | null
