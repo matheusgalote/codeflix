@@ -1,5 +1,5 @@
 import { MaxLength } from "class-validator"
-import { CastMember } from "./cast-member.entity"
+import { CastMember } from "./cast-member.aggregate"
 import { ClassValidatorFields } from "../../shared/domain/validators/class-validator-fields"
 import { Notification } from "../../shared/domain/validators/notification"
 import { CastMemberType } from "./cast-member-type.vo"
@@ -8,7 +8,7 @@ export class CastMemberRules {
   @MaxLength(255, { groups: ["name"] })
   name: string
 
-  castmember_type: CastMemberType
+  type: CastMemberType
 
   created_at: Date
 

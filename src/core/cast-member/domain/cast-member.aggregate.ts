@@ -1,33 +1,35 @@
 import { Uuid } from "@core/shared/domain/value-objects/uuid.vo"
 import { CastMemberType } from "./cast-member-type.vo"
-import { Entity } from "@core/shared/domain/entity"
 import { ValueObject } from "@core/shared/domain/value-object"
 import { CastMemberValidatorFactory } from "./cast-member.validator"
+import { AggregateRoot } from "@core/shared/domain/aggregate-root"
 
 export type CastMemberConstructorProps = {
-  castmember_id?: Uuid
+  castmember_id?: CastMemberId
   name: string
-  castmember_type: CastMemberType
+  type: CastMemberType
   created_at?: Date
 }
 
 export type CastMemberCreateCommand = {
   name: string
-  castmember_type: CastMemberType
+  type: CastMemberType
   created_at?: Date
 }
 
-export class CastMember extends Entity {
-  castmember_id: Uuid
+export class CastMemberId extends Uuid {}
+
+export class CastMember extends AggregateRoot {
+  castmember_id: CastMemberId
   name: string
-  castmember_type: CastMemberType
+  type: CastMemberType
   created_at: Date
 
   constructor(props: CastMemberConstructorProps) {
     super()
-    this.castmember_id = props.castmember_id ?? new Uuid()
+    this.castmember_id = props.castmember_id ?? new CastMemberId()
     this.name = props.name
-    this.castmember_type = props.castmember_type
+    this.type = props.type
     this.created_at = props.created_at ?? new Date()
   }
 
@@ -43,7 +45,7 @@ export class CastMember extends Entity {
   }
 
   changeCastMemberType(type: CastMemberType) {
-    this.castmember_type = type
+    this.type = type
   }
 
   get entity_id(): ValueObject {
@@ -59,7 +61,7 @@ export class CastMember extends Entity {
     return {
       castmember_id: this.castmember_id,
       name: this.name,
-      castmember_type: this.castmember_type.type,
+      type: this.type.type,
       created_at: this.created_at,
     }
   }

@@ -6,20 +6,27 @@ enum CastMemberTypeEnum {
 }
 
 export class CastMemberType extends ValueObject {
-  readonly type: string
-
-  constructor(type: string) {
+  constructor(readonly type: string) {
     super()
-    this.type = CastMemberTypeEnum[type]
+    this.type = type
     this.validate()
   }
 
   private validate() {
-    const isValid = this.type === "1" || this.type === "2"
+    const isValid =
+      this.type === CastMemberTypeEnum.director ||
+      this.type === CastMemberTypeEnum.actor
 
     if (!isValid) {
       throw new InvalidCastMemberTypeError()
     }
+  }
+
+  static randomCastMemberType() {
+    const types = [CastMemberTypeEnum.director, CastMemberTypeEnum.actor]
+    const randomNumber = Math.random()
+    const randomZeroOrOne = Math.round(randomNumber)
+    return new CastMemberType(types[randomZeroOrOne])
   }
 
   toString() {

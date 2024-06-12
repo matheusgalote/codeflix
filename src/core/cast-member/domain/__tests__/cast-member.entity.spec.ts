@@ -1,6 +1,6 @@
 import { Uuid } from "@core/shared/domain/value-objects/uuid.vo"
 import { CastMemberType } from "../cast-member-type.vo"
-import { CastMember } from "../cast-member.entity"
+import { CastMember } from "../cast-member.aggregate"
 
 describe("CastMember Unit Tests", () => {
   beforeEach(() => {
@@ -12,27 +12,25 @@ describe("CastMember Unit Tests", () => {
   test("constructor of category", () => {
     let castMember = new CastMember({
       name: "Joe",
-      castmember_type: new CastMemberType("actor"),
+      type: new CastMemberType("actor"),
     })
 
     expect(castMember.castmember_id).toBeInstanceOf(Uuid)
     expect(castMember.name).toBe("Joe")
-    expect(castMember.castmember_type.type).toBe("2")
+    expect(castMember.type.type).toBe("2")
     expect(castMember.created_at).toBeInstanceOf(Date)
 
     const created_at = new Date()
 
     castMember = new CastMember({
       name: "Joe Doe",
-      castmember_type: new CastMemberType("director"),
+      type: new CastMemberType("director"),
       created_at,
     })
 
     expect(castMember.castmember_id).toBeInstanceOf(Uuid)
     expect(castMember.name).toBe("Joe Doe")
-    expect(castMember.castmember_type).toStrictEqual(
-      new CastMemberType("director"),
-    )
+    expect(castMember.type).toStrictEqual(new CastMemberType("director"))
     expect(castMember.created_at).toEqual(created_at)
   })
 
@@ -40,16 +38,14 @@ describe("CastMember Unit Tests", () => {
     test("should create a cast member", () => {
       const castMember = CastMember.create({
         name: "Joe",
-        castmember_type: new CastMemberType("actor"),
+        type: new CastMemberType("actor"),
       })
 
       expect(castMember.castmember_id).toBeInstanceOf(Uuid)
       expect(castMember.name).toBe("Joe")
-      expect(castMember.castmember_type).toBeInstanceOf(CastMemberType)
-      expect(castMember.castmember_type.type).toBe("2")
-      expect(castMember.castmember_type).toStrictEqual(
-        new CastMemberType("actor"),
-      )
+      expect(castMember.type).toBeInstanceOf(CastMemberType)
+      expect(castMember.type.type).toBe("2")
+      expect(castMember.type).toStrictEqual(new CastMemberType("actor"))
       expect(castMember.created_at).toBeInstanceOf(Date)
     })
   })
@@ -66,7 +62,7 @@ describe("CastMember Unit Tests", () => {
   test("should change name", () => {
     const castMember = new CastMember({
       name: "Joe",
-      castmember_type: new CastMemberType("director"),
+      type: new CastMemberType("director"),
     })
 
     castMember.changeName("Joe Doe")
@@ -78,13 +74,11 @@ describe("CastMember Unit Tests", () => {
   test("should change CastMemberType", () => {
     const castMember = new CastMember({
       name: "Joe",
-      castmember_type: new CastMemberType("director"),
+      type: new CastMemberType("director"),
     })
 
     castMember.changeCastMemberType(new CastMemberType("actor"))
-    expect(castMember.castmember_type).toStrictEqual(
-      new CastMemberType("actor"),
-    )
+    expect(castMember.type).toStrictEqual(new CastMemberType("actor"))
     expect(CastMember.prototype.validate).toHaveBeenCalledTimes(0)
     expect(castMember.notification.hasErrors()).toBe(false)
   })
@@ -95,7 +89,7 @@ describe("CastMember Validator", () => {
     test("should an invalid category with name property", () => {
       const category = CastMember.create({
         name: "t".repeat(256),
-        castmember_type: new CastMemberType("actor"),
+        type: new CastMemberType("actor"),
       })
 
       expect(category.notification.hasErrors()).toBe(true)
@@ -111,7 +105,7 @@ describe("CastMember Validator", () => {
     test("should a invalid category using name property", () => {
       const category = CastMember.create({
         name: "Movie",
-        castmember_type: new CastMemberType("actor"),
+        type: new CastMemberType("actor"),
       })
       category.changeName("t".repeat(256))
       expect(category.notification.hasErrors()).toBe(true)
