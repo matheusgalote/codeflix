@@ -32,6 +32,18 @@ export class CastMemberFakeBuilder<TBuild = any> {
     return new CastMemberFakeBuilder<CastMember[]>(countObjs)
   }
 
+  static anActor() {
+    return new CastMemberFakeBuilder<CastMember>().withType(
+      CastMemberType.createAnActor(),
+    )
+  }
+
+  static aDirector() {
+    return new CastMemberFakeBuilder<CastMember>().withType(
+      CastMemberType.createADirector(),
+    )
+  }
+
   withUuid(valueOrFactory: PropOrFactory<CastMemberId>) {
     this._castmember_id = valueOrFactory
     return this

@@ -3,6 +3,7 @@ import { CastMemberType } from "./cast-member-type.vo"
 import { ValueObject } from "@core/shared/domain/value-object"
 import { CastMemberValidatorFactory } from "./cast-member.validator"
 import { AggregateRoot } from "@core/shared/domain/aggregate-root"
+import { CastMemberFakeBuilder } from "./cast-member-fake.builder"
 
 export type CastMemberConstructorProps = {
   castmember_id?: CastMemberId
@@ -55,6 +56,10 @@ export class CastMember extends AggregateRoot {
   validate(fields?: string[]) {
     const validator = CastMemberValidatorFactory.create()
     return validator.validate(this.notification, this, fields)
+  }
+
+  static fake() {
+    return CastMemberFakeBuilder
   }
 
   toJSON() {

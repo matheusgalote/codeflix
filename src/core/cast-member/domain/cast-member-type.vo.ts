@@ -1,8 +1,9 @@
+import { Either } from "@core/shared/domain/either"
 import { ValueObject } from "@core/shared/domain/value-object"
 
-enum CastMemberTypeEnum {
-  "director" = "1",
-  "actor" = "2",
+export enum CastMemberTypes {
+  DIRECTOR = "1",
+  ACTOR = "2",
 }
 
 export class CastMemberType extends ValueObject {
@@ -14,19 +15,33 @@ export class CastMemberType extends ValueObject {
 
   private validate() {
     const isValid =
-      this.type === CastMemberTypeEnum.director ||
-      this.type === CastMemberTypeEnum.actor
+      this.type === CastMemberTypes.DIRECTOR ||
+      this.type === CastMemberTypes.ACTOR
 
     if (!isValid) {
-      throw new InvalidCastMemberTypeError()
+      throw new InvalidCastMemberTypeError(this.type)
     }
   }
 
   static randomCastMemberType() {
-    const types = [CastMemberTypeEnum.director, CastMemberTypeEnum.actor]
+    const types = [CastMemberTypes.DIRECTOR, CastMemberTypes.ACTOR]
     const randomNumber = Math.random()
     const randomZeroOrOne = Math.round(randomNumber)
     return new CastMemberType(types[randomZeroOrOne])
+  }
+
+  static create(
+    value: CastMemberTypes,
+  ): Either<CastMemberType, InvalidCastMemberTypeError> {
+    return Either.safe(() => new CastMemberType(value))
+  }
+
+  static createAnActor() {
+    return CastMemberType.create(CastMemberTypes.ACTOR).ok
+  }
+
+  static createADirector() {
+    return CastMemberType.create(CastMemberTypes.DIRECTOR).ok
   }
 
   toString() {
