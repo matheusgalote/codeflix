@@ -1,16 +1,22 @@
 import { ValueObject } from "@core/shared/domain/value-object"
 
-export class CastMemberType extends ValueObject {
-  readonly type: "actor" | "director"
+enum CastMemberTypeEnum {
+  "director" = "1",
+  "actor" = "2",
+}
 
-  constructor(type?: "actor" | "director") {
+export class CastMemberType extends ValueObject {
+  readonly type: string
+
+  constructor(type: string) {
     super()
-    this.type = type
+    this.type = CastMemberTypeEnum[type]
     this.validate()
   }
 
   private validate() {
-    const isValid = this.type === "actor" || this.type === "director"
+    const isValid = this.type === "1" || this.type === "2"
+
     if (!isValid) {
       throw new InvalidCastMemberTypeError()
     }

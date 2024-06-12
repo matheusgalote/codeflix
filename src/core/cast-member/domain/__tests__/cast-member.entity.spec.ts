@@ -17,7 +17,7 @@ describe("CastMember Unit Tests", () => {
 
     expect(castMember.castmember_id).toBeInstanceOf(Uuid)
     expect(castMember.name).toBe("Joe")
-    expect(castMember.castmember_type.type).toBe("actor")
+    expect(castMember.castmember_type.type).toBe("2")
     expect(castMember.created_at).toBeInstanceOf(Date)
 
     const created_at = new Date()
@@ -46,7 +46,7 @@ describe("CastMember Unit Tests", () => {
       expect(castMember.castmember_id).toBeInstanceOf(Uuid)
       expect(castMember.name).toBe("Joe")
       expect(castMember.castmember_type).toBeInstanceOf(CastMemberType)
-      expect(castMember.castmember_type.type).toBe("actor")
+      expect(castMember.castmember_type.type).toBe("2")
       expect(castMember.castmember_type).toStrictEqual(
         new CastMemberType("actor"),
       )

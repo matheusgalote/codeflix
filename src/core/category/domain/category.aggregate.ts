@@ -1,4 +1,4 @@
-import { Entity } from "../../shared/domain/entity"
+import { AggregateRoot } from "@core/shared/domain/aggregate-root"
 import { ValueObject } from "../../shared/domain/value-object"
 import { Uuid } from "../../shared/domain/value-objects/uuid.vo"
 import { CategoryFakeBuilder } from "./category-fake.builder"
@@ -18,8 +18,10 @@ export type CategoryCreateCommand = {
   is_active?: boolean
 }
 
-export class Category extends Entity {
-  category_id: Uuid
+export class CategoryId extends Uuid {}
+
+export class Category extends AggregateRoot {
+  category_id: CategoryId
   name: string
   description: string | null
   is_active: boolean
@@ -27,7 +29,7 @@ export class Category extends Entity {
 
   constructor(props: CategoryConstructorProps) {
     super()
-    this.category_id = props.category_id ?? new Uuid()
+    this.category_id = props.category_id ?? new CategoryId()
     this.name = props.name
     this.description = props.description ?? null
     this.is_active = props.is_active ?? true

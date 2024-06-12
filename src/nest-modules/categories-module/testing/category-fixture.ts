@@ -1,4 +1,4 @@
-import { Category } from "../../../core/category/domain/category.entity"
+import { Category } from "../../../core/category/domain/category.aggregate"
 
 const _keysInResponse = ["id", "name", "description", "is_active", "created_at"]
 

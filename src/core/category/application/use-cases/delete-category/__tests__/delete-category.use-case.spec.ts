@@ -3,7 +3,7 @@ import {
   InvalidUuidError,
   Uuid,
 } from "../../../../../shared/domain/value-objects/uuid.vo"
-import { Category } from "../../../../domain/category.entity"
+import { Category } from "../../../../domain/category.aggregate"
 import { CategoryInMemoryRepository } from "../../../../infra/db/in-memory/category-in-memory.repository"
 import { DeleteCategoryUseCase } from "../delete-category.use-case"
 
@@ -18,13 +18,13 @@ describe("DeleteCategoryUseCase Unit Tests", () => {
 
   test("should throws error when entity not found", async () => {
     await expect(() => useCase.execute({ id: "fake id" })).rejects.toThrow(
-      new InvalidUuidError()
+      new InvalidUuidError(),
     )
 
     const uuid = new Uuid()
 
     await expect(() => useCase.execute({ id: uuid.id })).rejects.toThrow(
-      new NotFoundError(uuid.id, Category)
+      new NotFoundError(uuid.id, Category),
     )
   })
 
