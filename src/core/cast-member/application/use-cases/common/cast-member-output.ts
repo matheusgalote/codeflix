@@ -13,7 +13,7 @@ export class CastMemberOutputMapper {
     const { castmember_id, name, type, created_at } = entity.toJSON()
 
     return {
-      id: castmember_id.id,
+      id: castmember_id,
       name,
       type: CastMemberType.toOutput(type),
       created_at,

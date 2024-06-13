@@ -11,11 +11,11 @@ import {
 import { NotFoundError } from "@core/shared/domain/errors/not-found.error"
 
 export class GetCastMemberUseCase
-  implements IUseCase<IGetCastMemberInput, IGetCastMemberOutput>
+  implements IUseCase<GetCastMemberInput, GetCastMemberOutput>
 {
   constructor(private readonly castMemberRepo: ICastMemberRepository) {}
 
-  async execute(input: IGetCastMemberInput): Promise<CastMemberOutput> {
+  async execute(input: GetCastMemberInput): Promise<CastMemberOutput> {
     const uuid = new CastMemberId(input.id)
     const castMember = await this.castMemberRepo.findById(uuid)
 
@@ -27,8 +27,8 @@ export class GetCastMemberUseCase
   }
 }
 
-export type IGetCastMemberInput = {
+export type GetCastMemberInput = {
   id: string
 }
 
-export type IGetCastMemberOutput = CastMemberOutput
+export type GetCastMemberOutput = CastMemberOutput

@@ -15,25 +15,27 @@ import {
   CastMemberOutputMapper,
 } from "../common/cast-member-output"
 
-export class ListCastMemberUseCase
-  implements IUseCase<ListCastMemberInput, ListCastMemberOutput>
+export class ListCastMembersUseCase
+  implements IUseCase<ListCastMembersInput, ListCastMembersOutput>
 {
   constructor(private castMemberRepo: ICastMemberRepository) {}
 
-  async execute(input: ListCastMemberInput): Promise<ListCastMemberOutput> {
+  async execute(input: ListCastMembersInput): Promise<ListCastMembersOutput> {
     const params = new CastMemberSearchParams(input)
     const searchResult = await this.castMemberRepo.search(params)
     return this.toOutput(searchResult)
   }
 
-  private toOutput(searchResult: CastMemberSearchResult): ListCastMemberOutput {
+  private toOutput(
+    searchResult: CastMemberSearchResult,
+  ): ListCastMembersOutput {
     const { items: _items } = searchResult
     const items = _items.map((item) => CastMemberOutputMapper.toOutput(item))
     return PaginationOutputMapper.toOutput(items, searchResult)
   }
 }
 
-export type ListCastMemberInput = {
+export type ListCastMembersInput = {
   page?: number
   per_page?: number
   sort?: string | null
@@ -41,4 +43,4 @@ export type ListCastMemberInput = {
   filter?: CastMemberFilter | null
 }
 
-export type ListCastMemberOutput = PaginationOutput<CastMemberOutput>
+export type ListCastMembersOutput = PaginationOutput<CastMemberOutput>

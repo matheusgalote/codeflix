@@ -1,34 +1,73 @@
-import { ListCastMemberUseCase } from "../list-cast-member.use-case"
+import { CastMemberInMemoryRepository } from "@core/cast-member/infra/db/in-memory/cast-member-in-memory.repository"
+import { ListCastMembersUseCase } from "../list-cast-members.use-case"
+import { CastMemberSearchResult } from "@core/cast-member/domain/cast-member.repository"
 import { CastMember } from "@core/cast-member/domain/cast-member.aggregate"
 import { CastMemberOutputMapper } from "../../common/cast-member-output"
 import { CastMemberType } from "@core/cast-member/domain/cast-member-type.vo"
-import { CastMemberSequelizeRepository } from "@core/cast-member/infra/db/sequelize/cast-member-sequelize.repository"
-import { CastMemberModel } from "@core/cast-member/infra/db/sequelize/cast-member.model"
-import { setupSequelize } from "@core/shared/infra/testing/helpers"
 
-describe("ListCastMemberUseCase Unit Tests", () => {
-  let useCase: ListCastMemberUseCase
-  let repository: CastMemberSequelizeRepository
+describe("ListCastMembersUseCase Unit Tests", () => {
+  let useCase: ListCastMembersUseCase
+  let repository: CastMemberInMemoryRepository
 
   beforeEach(() => {
-    repository = new CastMemberSequelizeRepository(CastMemberModel)
-    useCase = new ListCastMemberUseCase(repository)
+    repository = new CastMemberInMemoryRepository()
+    useCase = new ListCastMembersUseCase(repository)
   })
 
-  setupSequelize({ models: [CastMemberModel] })
+  test("toOutput method", () => {
+    let result = new CastMemberSearchResult({
+      items: [],
+      total: 1,
+      current_page: 1,
+      per_page: 2,
+    })
+    let output = useCase["toOutput"](result)
+    expect(output).toStrictEqual({
+      items: [],
+      total: 1,
+      current_page: 1,
+      per_page: 2,
+      last_page: 1,
+    })
+
+    const entity = CastMember.create({
+      name: "Movie",
+      type: CastMemberType.randomCastMemberType(),
+    })
+    result = new CastMemberSearchResult({
+      items: [entity],
+      total: 1,
+      current_page: 1,
+      per_page: 2,
+    })
+
+    output = useCase["toOutput"](result)
+    expect(output).toStrictEqual({
+      items: [entity].map(CastMemberOutputMapper.toOutput),
+      total: 1,
+      current_page: 1,
+      per_page: 2,
+      last_page: 1,
+    })
+  })
 
   test("should return output sorted by created_at when input param is empty", async () => {
-    const castMembers = CastMember.fake()
-      .theCastMembers(2)
-      .withCreatedAt((i) => new Date(new Date().getTime() + 1000 + i))
-      .build()
-
-    await repository.bulkInsert(castMembers)
+    const items = [
+      new CastMember({
+        name: "test 1",
+        type: CastMemberType.randomCastMemberType(),
+      }),
+      new CastMember({
+        name: "test 2",
+        type: CastMemberType.randomCastMemberType(),
+        created_at: new Date(new Date().getTime() + 100),
+      }),
+    ]
+    repository.items = items
 
     const output = await useCase.execute({})
-
-    expect(output).toEqual({
-      items: [...castMembers].reverse().map(CastMemberOutputMapper.toOutput),
+    expect(output).toStrictEqual({
+      items: [...items].reverse().map(CastMemberOutputMapper.toOutput),
       total: 2,
       current_page: 1,
       per_page: 15,
@@ -36,7 +75,7 @@ describe("ListCastMemberUseCase Unit Tests", () => {
     })
   })
 
-  test("should return output using pagination, sort and filter", async () => {
+  it("should return output using pagination, sort and filter", async () => {
     const items = [
       new CastMember({
         name: "a",
@@ -59,7 +98,7 @@ describe("ListCastMemberUseCase Unit Tests", () => {
         type: CastMemberType.randomCastMemberType(),
       }),
     ]
-    await repository.bulkInsert(items)
+    repository.items = items
 
     let output = await useCase.execute({
       page: 1,

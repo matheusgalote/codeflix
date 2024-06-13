@@ -6,7 +6,7 @@ export enum CastMemberTypes {
   ACTOR = 2,
 }
 
-const mapper = {
+export const castMemberMapper = {
   1: {
     name: "Director",
   },
@@ -54,7 +54,7 @@ export class CastMemberType extends ValueObject {
   }
 
   static toOutput(type: number) {
-    return mapper[type]["name"]
+    return castMemberMapper[type]["name"]
   }
 
   toString() {

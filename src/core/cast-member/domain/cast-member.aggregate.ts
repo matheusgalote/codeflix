@@ -64,7 +64,7 @@ export class CastMember extends AggregateRoot {
 
   toJSON() {
     return {
-      castmember_id: this.castmember_id,
+      castmember_id: this.castmember_id.id,
       name: this.name,
       type: this.type.type,
       created_at: this.created_at,
