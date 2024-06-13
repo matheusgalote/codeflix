@@ -16,7 +16,7 @@ describe("CastMemberType Unit Tests", () => {
   test("should create a cast member type", () => {
     const castMemberType = new CastMemberType(1)
     expect(castMemberType).toBeInstanceOf(CastMemberType)
-    expect(castMemberType.type).toBe("1")
+    expect(castMemberType.type).toBe(1)
     expect(validateSpy).toHaveBeenCalledTimes(1)
   })
 

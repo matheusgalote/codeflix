@@ -41,7 +41,6 @@ export class CastMemberSequelizeRepository implements ICastMemberRepository {
       },
     )
 
-    console.log(affectedRows, id)
     if (!affectedRows) {
       throw new NotFoundError(id, this.getEntity())
     }

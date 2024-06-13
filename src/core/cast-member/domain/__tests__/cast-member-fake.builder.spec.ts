@@ -217,7 +217,6 @@ describe("CategoryFakerBuilder Unit Tests", () => {
       expect(category.created_at).toBeInstanceOf(Date)
     })
 
-    const created_at = new Date()
     const castmember_id = new CastMemberId()
     const type = new CastMemberType(2)
     castMembers = faker
@@ -226,7 +225,6 @@ describe("CategoryFakerBuilder Unit Tests", () => {
       .withType(type)
       .build()
 
-    console.log(created_at)
     castMembers.forEach((castMember) => {
       expect(castMember.castmember_id.id).toBe(castmember_id.id)
       expect(castMember.name).toBe("name test")

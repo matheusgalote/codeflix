@@ -6,6 +6,15 @@ export enum CastMemberTypes {
   ACTOR = 2,
 }
 
+const mapper = {
+  1: {
+    name: "Director",
+  },
+  2: {
+    name: "Actor",
+  },
+}
+
 export class CastMemberType extends ValueObject {
   constructor(readonly type: number) {
     super()
@@ -19,7 +28,7 @@ export class CastMemberType extends ValueObject {
       this.type === CastMemberTypes.ACTOR
 
     if (!isValid) {
-      throw new InvalidCastMemberTypeError(String(this.type))
+      throw new InvalidCastMemberTypeError()
     }
   }
 
@@ -42,6 +51,10 @@ export class CastMemberType extends ValueObject {
 
   static createADirector() {
     return CastMemberType.create(CastMemberTypes.DIRECTOR).ok
+  }
+
+  static toOutput(type: number) {
+    return mapper[type]["name"]
   }
 
   toString() {
