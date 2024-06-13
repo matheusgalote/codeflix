@@ -19,7 +19,7 @@ export class CastMemberSequelizeRepository implements ICastMemberRepository {
 
   orderBy = {
     mysql: {
-      name: (sort_dir: SortDirection) => literal(`binart name ${sort_dir}`),
+      name: (sort_dir: SortDirection) => literal(`binary name ${sort_dir}`),
     },
   }
 
@@ -81,7 +81,7 @@ export class CastMemberSequelizeRepository implements ICastMemberRepository {
     }
 
     const { rows: models, count } = await this.castMemberModel.findAndCountAll({
-      where,
+      where: where,
       ...(props.sort && this.sortableFields.includes(props.sort)
         ? { order: this.formatSort(props.sort, props.sort_dir) }
         : { order: [["created_at", "desc"]] }),
