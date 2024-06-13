@@ -10,3 +10,32 @@ Content-Type: application/json
 
 ###
 GET http://localhost:3000/categories
+
+
+### 
+POST http://localhost:3000/cast-members
+Content-Type: application/json
+
+{
+  "name": "JOE",
+  "type": 2
+}
+
+###
+GET http://localhost:3000/cast-members/50b916df-b64a-40e0-b545-dca030b3b599
+
+###
+PATCH  http://localhost:3000/cast-members/50b916df-b64a-40e0-b545-dca030b3b599
+Content-Type: application/json
+
+{
+  "name": "John AAA",
+  "type": 1
+}
+
+
+###
+GET  http://localhost:3000/cast-members
+
+###
+DELETE  http://localhost:3000/cast-members/50b916df-b64a-40e0-b545-dca030b3b599
