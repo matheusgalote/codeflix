@@ -9,6 +9,7 @@ import {
   Inject,
   Query,
   ParseUUIDPipe,
+  HttpCode,
 } from "@nestjs/common"
 import { CreateCastMemberDto } from "./dto/create-cast-member.dto"
 import { UpdateCastMemberDto } from "./dto/update-cast-member.dto"
@@ -76,6 +77,7 @@ export class CastMembersController {
     return CastMembersController.serialize(output)
   }
 
+  @HttpCode(204)
   @Delete(":id")
   remove(
     @Param("id", new ParseUUIDPipe({ errorHttpStatusCode: 422 })) id: string,
@@ -83,7 +85,7 @@ export class CastMembersController {
     return this.deleteUseCase.execute({ id })
   }
 
-  private static serialize(output: CastMemberOutput) {
+  static serialize(output: CastMemberOutput) {
     return new CastMemberPresenter(output)
   }
 

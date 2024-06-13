@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, validateSync } from "class-validator"
+import { IsNotEmpty, IsNumber, IsString, validateSync } from "class-validator"
 
 export type CreateCastMemberInputConstructorProps = {
   name: string
@@ -10,7 +10,7 @@ export class CreateCastMemberInput {
   @IsNotEmpty()
   name: string
 
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
   type: number
 

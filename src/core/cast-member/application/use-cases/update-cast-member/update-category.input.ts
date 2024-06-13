@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsOptional, IsString, validateSync } from "class-validator"
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  validateSync,
+} from "class-validator"
 
 export type UpdateCastMemberInputConstructorProps = {
   id: string
@@ -15,7 +21,7 @@ export class UpdateCastMemberInput {
   @IsOptional()
   name?: string
 
-  @IsString()
+  @IsNumber()
   @IsOptional()
   type?: number | null
 

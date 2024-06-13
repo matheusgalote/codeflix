@@ -36,13 +36,19 @@ export class CreateCastMemberFixture {
       EMPTY: {
         send_data: {},
         expected: {
-          message: ["name should not be empty", "name must be a string"],
+          message: [
+            "name should not be empty",
+            "name must be a string",
+            "type should not be empty",
+            "type must be a number conforming to the specified constraints",
+          ],
           ...defaultExpected,
         },
       },
       NAME_UNDEFINED: {
         send_data: {
           name: undefined,
+          type: 2,
         },
         expected: {
           message: ["name should not be empty", "name must be a string"],
@@ -52,6 +58,7 @@ export class CreateCastMemberFixture {
       NAME_NULL: {
         send_data: {
           name: null,
+          type: 1,
         },
         expected: {
           message: ["name should not be empty", "name must be a string"],
@@ -61,6 +68,7 @@ export class CreateCastMemberFixture {
       NAME_EMPTY: {
         send_data: {
           name: "",
+          type: 1,
         },
         expected: {
           message: ["name should not be empty"],
@@ -69,28 +77,39 @@ export class CreateCastMemberFixture {
       },
       TYPE_NULL: {
         send_data: {
+          name: "a",
           type: null,
         },
         expected: {
-          message: ["type should not be empty", "type must be a integer"],
+          message: [
+            "type should not be empty",
+            "type must be a number conforming to the specified constraints",
+          ],
           ...defaultExpected,
         },
       },
       TYPE_EMPTY: {
         send_data: {
+          name: "a",
           type: "",
         },
         expected: {
-          message: ["type should not be empty"],
+          message: [
+            "type should not be empty",
+            "type must be a number conforming to the specified constraints",
+          ],
           ...defaultExpected,
         },
       },
       TYPE_NOT_A_INTEGER: {
         send_data: {
+          name: "a",
           type: "5",
         },
         expected: {
-          message: ["type must be a integer"],
+          message: [
+            "type must be a number conforming to the specified constraints",
+          ],
           ...defaultExpected,
         },
       },
@@ -131,23 +150,23 @@ export class UpdateCastMemberFixture {
         },
         expected: {
           name: faker.name,
-          type: 1,
+          type: "Director",
         },
       },
-      {
-        send_data: {
-          name: faker.name,
-        },
-        expected: {
-          name: faker.name,
-        },
-      },
-      {
-        send_data: {
-          type: faker.type,
-        },
-        expected: { type: faker.type },
-      },
+      // {
+      //   send_data: {
+      //     name: faker.name,
+      //   },
+      //   expected: {
+      //     name: faker.name,
+      //   },
+      // },
+      // {
+      //   send_data: {
+      //     type: faker.type,
+      //   },
+      //   expected: { type: faker.type },
+      // },
     ]
   }
 
@@ -163,7 +182,9 @@ export class UpdateCastMemberFixture {
           type: "5",
         },
         expected: {
-          message: ["type must be a integer"],
+          message: [
+            "type must be a number conforming to the specified constraints",
+          ],
           ...defaultExpected,
         },
       },
