@@ -7,14 +7,14 @@ describe("CastMemberType Unit Tests", () => {
   const validateSpy = jest.spyOn(CastMemberType.prototype as any, "validate")
 
   test("should throw a error when pass the invalid type", () => {
-    expect(() => new CastMemberType("3")).toThrow(
+    expect(() => new CastMemberType(3)).toThrow(
       new InvalidCastMemberTypeError(),
     )
     expect(validateSpy).toHaveBeenCalledTimes(1)
   })
 
   test("should create a cast member type", () => {
-    const castMemberType = new CastMemberType("1")
+    const castMemberType = new CastMemberType(1)
     expect(castMemberType).toBeInstanceOf(CastMemberType)
     expect(castMemberType.type).toBe("1")
     expect(validateSpy).toHaveBeenCalledTimes(1)

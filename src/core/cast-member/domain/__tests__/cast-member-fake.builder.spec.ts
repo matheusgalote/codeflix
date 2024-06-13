@@ -108,12 +108,12 @@ describe("CategoryFakerBuilder Unit Tests", () => {
     })
 
     test("withType", () => {
-      let castMemberType = new CastMemberType("1")
+      let castMemberType = new CastMemberType(1)
       const $this = faker.withType(castMemberType)
       expect($this).toBeInstanceOf(CastMemberFakeBuilder)
       expect(faker["_type"]).toBe(castMemberType)
 
-      castMemberType = new CastMemberType("2")
+      castMemberType = new CastMemberType(2)
       faker.withType(() => castMemberType)
       //@ts-expect-error type is callable
       expect(faker["_type"]()).toBe(castMemberType)
@@ -122,12 +122,12 @@ describe("CategoryFakerBuilder Unit Tests", () => {
     })
 
     test("should pass cast member type to type factory", () => {
-      let mockFactory = jest.fn(() => new CastMemberType("1"))
+      let mockFactory = jest.fn(() => new CastMemberType(1))
       faker.withType(mockFactory)
       faker.build()
       expect(mockFactory).toHaveBeenCalledTimes(1)
 
-      const castMemberType = new CastMemberType("2")
+      const castMemberType = new CastMemberType(2)
       mockFactory = jest.fn(() => castMemberType)
       const fakerMany = CastMemberFakeBuilder.theCastMembers(2)
       fakerMany.withType(mockFactory)
@@ -191,7 +191,7 @@ describe("CategoryFakerBuilder Unit Tests", () => {
 
     const created_at = new Date()
     const category_id = new CastMemberId()
-    const type = new CastMemberType("2")
+    const type = new CastMemberType(2)
 
     castMember = faker
       .withUuid(category_id)
@@ -219,7 +219,7 @@ describe("CategoryFakerBuilder Unit Tests", () => {
 
     const created_at = new Date()
     const castmember_id = new CastMemberId()
-    const type = new CastMemberType("2")
+    const type = new CastMemberType(2)
     castMembers = faker
       .withUuid(castmember_id)
       .withName("name test")

@@ -19,9 +19,7 @@ export type CastMemberFilter = {
 }
 
 export class CastMemberSearchParams extends DefaultSearchParams<CastMemberFilter> {
-  private constructor(
-    props: SearchParamsConstructorProps<CastMemberFilter> = {},
-  ) {
+  constructor(props: SearchParamsConstructorProps<CastMemberFilter> = {}) {
     super(props)
   }
 
@@ -47,6 +45,7 @@ export class CastMemberSearchParams extends DefaultSearchParams<CastMemberFilter
       throw error
     }
 
+    console.log(props, "M<<<<")
     return new CastMemberSearchParams({
       ...props,
       filter: {

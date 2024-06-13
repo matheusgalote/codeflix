@@ -2,12 +2,12 @@ import { Either } from "@core/shared/domain/either"
 import { ValueObject } from "@core/shared/domain/value-object"
 
 export enum CastMemberTypes {
-  DIRECTOR = "1",
-  ACTOR = "2",
+  DIRECTOR = 1,
+  ACTOR = 2,
 }
 
 export class CastMemberType extends ValueObject {
-  constructor(readonly type: string) {
+  constructor(readonly type: number) {
     super()
     this.type = type
     this.validate()
@@ -19,7 +19,7 @@ export class CastMemberType extends ValueObject {
       this.type === CastMemberTypes.ACTOR
 
     if (!isValid) {
-      throw new InvalidCastMemberTypeError(this.type)
+      throw new InvalidCastMemberTypeError(String(this.type))
     }
   }
 

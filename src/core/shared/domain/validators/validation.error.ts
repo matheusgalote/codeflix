@@ -35,3 +35,10 @@ export class LoadEntityError extends BaseValidationError {
     this.name = "LoadEntityError"
   }
 }
+
+export class UpdateEntityError extends BaseValidationError {
+  constructor(public error: FieldsErrors[]) {
+    super(error, "UpdateEntityError")
+    this.name = "UpdateEntityError"
+  }
+}
