@@ -150,7 +150,7 @@ export class UpdateCastMemberFixture {
         },
         expected: {
           name: faker.name,
-          type: "Director",
+          type: 1,
         },
       },
       // {
