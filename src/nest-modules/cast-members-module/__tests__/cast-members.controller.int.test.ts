@@ -74,28 +74,28 @@ describe("CastMembersController Integration Tests", () => {
   describe("should update a category", () => {
     const arrange = UpdateCastMemberFixture.arrangeForUpdate()
 
-    const category = CastMember.fake()
+    const castMember = CastMember.fake()
       .aCastMember()
       .withType(new CastMemberType(1))
       .build()
 
     beforeEach(async () => {
-      await repository.insert(category)
+      await repository.insert(castMember)
     })
 
     test.each(arrange)(
       "when body is $send_data",
       async ({ send_data, expected }) => {
         const presenter = await controller.update(
-          category.castmember_id.id,
+          castMember.castmember_id.id,
           send_data,
         )
         const entity = await repository.findById(new CastMemberId(presenter.id))
         expect(entity.toJSON()).toStrictEqual({
           castmember_id: presenter.id,
           created_at: presenter.created_at,
-          name: expected.name ?? category.name,
-          type: expected.type ?? 1,
+          name: expected.name ?? castMember.name,
+          type: expected.type ?? castMemberMapper[castMember.type.type]["name"],
         })
         const output = CastMemberOutputMapper.toOutput(entity)
         expect(presenter).toEqual(new CastMemberPresenter(output))

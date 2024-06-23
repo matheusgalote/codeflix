@@ -15,12 +15,13 @@
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "migrate:ts": "node -r ts-node/register/transpile-only ./src/migrate.ts",
     "migrate:js": "node -r ./src/migrate.js",
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "test": "npm run tsc --noEmit && jest",
+    "test:watch": "npm run tsc -- --noEmit && jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.config.ts",
-    "test:e2e:watch": "jest --config ./test/jest-e2e.config.ts --watch"
+    "test:e2e:watch": "jest --config ./test/jest-e2e.config.ts --watch",
+    "tsc": "tsc"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
